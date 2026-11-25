@@ -1,0 +1,6 @@
+-r requirements.txt
+anthropic
+python-dotenv
+numpy
+sentence-transformers
+mcp[cli]<2

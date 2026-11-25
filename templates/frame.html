@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Frame Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 12px; background: #f0f7ff; }
+        input, button { padding: 6px; margin: 4px 0; }
+    </style>
+</head>
+<body>
+    <h3 id="frame-title" data-testid="frame-title">I am inside the iFrame</h3>
+    <input type="text" id="frame-input" data-testid="frame-input" placeholder="Type inside the frame">
+    <button id="frame-btn" data-testid="frame-btn">Click Inside Frame</button>
+    <p id="frame-result" data-testid="frame-result"></p>
+    <p><a href="/">Back to home</a></p>
+
+    <script>
+        document.getElementById("frame-btn").addEventListener("click", () => {
+            const value = document.getElementById("frame-input").value || "(empty)";
+            document.getElementById("frame-result").textContent = "Frame says: " + value;
+        });
+    </script>
+</body>
+</html>

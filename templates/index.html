@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Playwright Practice Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+    <h1 id="page-title" data-testid="page-title">Playwright Practice Page</h1>
+    <p id="intro-text" data-testid="intro-text">
+        Welcome! This page has common web elements for learning test automation.
+    </p>
+</header>
+
+<main>
+
+    <!-- ===== 1. Form / Edit boxes ===== -->
+    <section id="form-section">
+        <h2>1. Add a User (Form)</h2>
+        <form id="user-form" data-testid="user-form">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter name" data-testid="name-input">
+
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" placeholder="Enter city" data-testid="city-input">
+
+            <label for="role">Role</label>
+            <select id="role" name="role" data-testid="role-select">
+                <option value="">-- Select role --</option>
+                <option value="QA Engineer">QA Engineer</option>
+                <option value="Developer">Developer</option>
+                <option value="Manager">Manager</option>
+            </select>
+
+            <label for="comments">Comments</label>
+            <textarea id="comments" name="comments" rows="3" placeholder="Any comments" data-testid="comments-input"></textarea>
+
+            <fieldset>
+                <legend>Experience</legend>
+                <label><input type="radio" name="experience" value="junior" id="exp-junior" data-testid="exp-junior"> Junior</label>
+                <label><input type="radio" name="experience" value="senior" id="exp-senior" data-testid="exp-senior"> Senior</label>
+            </fieldset>
+
+            <label class="inline">
+                <input type="checkbox" id="terms" data-testid="terms-checkbox"> I accept the terms
+            </label>
+
+            <button type="submit" id="submit-btn" data-testid="submit-btn">Add User</button>
+            <button type="reset" id="reset-btn" data-testid="reset-btn">Clear</button>
+        </form>
+        <p id="form-message" data-testid="form-message" role="status"></p>
+    </section>
+
+    <!-- ===== 2. Table (loaded from API) ===== -->
+    <section id="table-section">
+        <h2>2. Users Table</h2>
+        <button id="refresh-table-btn" data-testid="refresh-table-btn">Refresh Table</button>
+        <table id="users-table" data-testid="users-table">
+            <thead>
+                <tr><th>ID</th><th>Name</th><th>City</th><th>Role</th><th>Action</th></tr>
+            </thead>
+            <tbody id="users-tbody"></tbody>
+        </table>
+        <p>Total users: <span id="user-count" data-testid="user-count">0</span></p>
+    </section>
+
+    <!-- ===== 3. Buttons & Alerts ===== -->
+    <section id="buttons-section">
+        <h2>3. Buttons &amp; Alerts</h2>
+        <button id="alert-btn" data-testid="alert-btn">Show Alert</button>
+        <button id="confirm-btn" data-testid="confirm-btn">Show Confirm</button>
+        <button id="prompt-btn" data-testid="prompt-btn">Show Prompt</button>
+        <button id="disabled-btn" data-testid="disabled-btn" disabled>Disabled Button</button>
+        <button id="enable-btn" data-testid="enable-btn">Enable the Disabled Button</button>
+        <button id="dblclick-btn" data-testid="dblclick-btn">Double-click Me</button>
+        <p id="dialog-result" data-testid="dialog-result" role="status"></p>
+    </section>
+
+    <!-- ===== 4. Waits: hidden & delayed elements ===== -->
+    <section id="wait-section">
+        <h2>4. Show / Hide &amp; Delayed Elements</h2>
+        <button id="toggle-btn" data-testid="toggle-btn">Show / Hide Secret</button>
+        <p id="secret-text" data-testid="secret-text" class="hidden">🎉 You found the secret text!</p>
+
+        <button id="delayed-btn" data-testid="delayed-btn">Load Message (3 seconds)</button>
+        <p id="delayed-text" data-testid="delayed-text"></p>
+    </section>
+
+    <!-- ===== 5. Links ===== -->
+    <section id="links-section">
+        <h2>5. Links</h2>
+        <ul>
+            <li><a id="internal-link" data-testid="internal-link" href="/frame">Internal link (frame page)</a></li>
+            <li><a id="external-link" data-testid="external-link" href="https://playwright.dev" target="_blank" rel="noopener">External link (opens new tab)</a></li>
+            <li><a id="api-link" data-testid="api-link" href="/api/users">API link (JSON)</a></li>
+            <li><a id="broken-link" data-testid="broken-link" href="/this-page-does-not-exist">Broken link (404)</a></li>
+            <li><a id="anchor-link" data-testid="anchor-link" href="#table-section">Jump to table (anchor)</a></li>
+        </ul>
+    </section>
+
+    <!-- ===== 6. iFrame ===== -->
+    <section id="frame-section">
+        <h2>6. iFrame</h2>
+        <iframe id="practice-frame" data-testid="practice-frame" name="practice-frame"
+                src="/frame" title="Practice frame" width="100%" height="220"></iframe>
+    </section>
+
+    <!-- ===== 7. Static text ===== -->
+    <section id="text-section">
+        <h2>7. Some Text</h2>
+        <p id="paragraph-1" data-testid="paragraph-1">
+            Playwright is a tool for automating browsers. It can click, type, read text and check results.
+        </p>
+        <p id="paragraph-2" data-testid="paragraph-2">
+            Later, we will use AI agents, RAG and MCP to drive tests like these automatically.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    <p id="footer-text" data-testid="footer-text">© 2026 Practice App</p>
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
