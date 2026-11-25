@@ -1,0 +1,59 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [main]      # run CI on every PR into main
+  push:
+    branches: [main]      # run again after a PR is merged
+  workflow_dispatch:      # manual "Run workflow" button on GitHub
+
+jobs:
+  playwright-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install Python libraries
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright browser
+        run: python -m playwright install --with-deps chromium
+
+      - name: Start the Flask app in the background
+        run: |
+          nohup python app.py > flask.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:5000/api/health && echo " app is up" && exit 0
+            sleep 1
+          done
+          echo "App did not start:"; cat flask.log; exit 1
+
+      - name: Run tests
+        run: >
+          pytest -v
+          -m "not local"
+          -o addopts=""
+          --browser chromium
+          --screenshot only-on-failure
+          --tracing retain-on-failure
+          --html=report.html --self-contained-html
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: |
+            report.html
+            test-results/
+            flask.log
+          retention-days: 14
