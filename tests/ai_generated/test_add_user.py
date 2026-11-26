@@ -55,10 +55,6 @@ def test_required_fields_missing(page: Page, missing):
     expect(page.get_by_test_id("users-table").locator("tr", has_text=name)).to_have_count(0)
 
 
-@pytest.mark.xfail(
-    reason="App bug: R3 - user can be added without choosing an experience level (Junior/Senior)",
-    strict=True,
-)
 def test_experience_required(page: Page):
     """R3: user must choose an experience level; submit without one must not create a user."""
     page.goto(BASE_URL)

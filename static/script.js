@@ -48,6 +48,12 @@ $("user-form").addEventListener("submit", async (e) => {
         return;
     }
 
+        const experience = document.querySelector('input[name="experience"]:checked');
+    if (!experience) {
+        showMessage("Please select an experience level.", "error");
+        return;
+    }
+
     const payload = {
         name: $("name").value,
         city: $("city").value,
